@@ -8,7 +8,7 @@ const todoList = document.querySelector('.todo-list'),
 let todoData = [];
 
 const render = function () {
-    todoData = JSON.parse( localStorage.getItem('key')); /// object = JSON.parse (localStorage.getItem ("object"));
+    todoData = JSON.parse(localStorage.getItem('key')); /// object = JSON.parse (localStorage.getItem ("object"));
     todoList.textContent = '';
     todoCompleted.textContent = '';
 
@@ -55,8 +55,13 @@ todoControl.addEventListener('submit', function (event) {
             value: headerInput.value,
             completed: false,
         };
-        todoData[todoData.length] = newTodo;
-        localStorage.setItem('key', JSON.stringify(todoData));
+        if (todoData === null) {
+            todoData = [];
+        } else {
+            todoData.push(newTodo); //arr.splice(index, 0, objectName)
+            localStorage.setItem('key', JSON.stringify(todoData));
+        }
+
     }
     headerInput.value = '';
     render();
